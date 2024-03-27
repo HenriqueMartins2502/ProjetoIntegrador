@@ -29,3 +29,4 @@ print(f"G. Outros Custos: R${OC:.2f}/ {(CF+CV+IV)}%")
 print(f"H. Rentabilidade: R${(RB-OC):.2f}/ {ML}%")
 
 '''Começar condicionais!!!'''
+
