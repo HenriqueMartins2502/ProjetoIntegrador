@@ -20,8 +20,8 @@ porcenRB=((RB*100)/PV)
 
 '''Print finais mostrando os calculos realizados'''
 print(f"A. Preço de Venda: R${PV:.2f}/ 100%")
-print(f"B. Custo de Aquisição (fornecedor): R${CP:.2f}/ {100-porcenRB}%")
-print(f"C. Receita Bruta: R${RB:.2f}/ {porcenRB} %")
+print(f"B. Custo de Aquisição (fornecedor): R${CP:.2f}/ {100-porcenRB:.2f}%")
+print(f"C. Receita Bruta: R${RB:.2f}/ {porcenRB:.2f} %")
 print(f"D. Custo Fixo/Administrativo: R${(PV*(CF/100)):.2f}/ {CF:.2f}%")
 print(f"E. Comissão de Vendas: R${(PV*(CV/100)):.2f}/ {CV:.2f}%")
 print(f"F. Impostos: R${(PV*(IV/100)):.2f}/ {IV:.2f}%")
