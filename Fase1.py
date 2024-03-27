@@ -30,3 +30,13 @@ print(f"H. Rentabilidade: R${(RB-OC):.2f}/ {ML}%")
 
 '''Começar condicionais!!!'''
 
+if ML > 20:
+    print("O lucro com este produto é alto")
+elif ML > 10 and ML <= 20:
+    print("O lucro com este produto é médio")
+elif ML > 0 and ML <= 10:
+    print("O lucro obtido com este produto é baixo")
+elif ML == 0:
+    print("O lucro é nulo")
+elif ML < 0:
+    print("Prejuízo")
