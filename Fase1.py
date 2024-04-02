@@ -37,6 +37,6 @@ elif ML > 10 and ML <= 20:
 elif ML > 0 and ML <= 10:
     print("O lucro obtido com este produto é baixo")
 elif ML == 0:
-    print("O lucro é nulo")
+    print("Equilíbrio")
 elif ML < 0:
     print("Prejuízo")
