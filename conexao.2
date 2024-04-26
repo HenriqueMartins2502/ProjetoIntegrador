@@ -1,0 +1,41 @@
+import oracledb
+try:
+ conexao = oracledb.connect(
+ user="BD150224114",
+ password="Mwabf7",
+ dsn="BD-ACD/xe")
+except Exception as erro:
+ print ('Erro em conexão', erro)
+else:
+ print ("Conectado", conexao.version)
+cursor=conexao.cursor()
+
+#definição das listas
+
+id_prod=[]
+nome_prod=[]
+desc_prod=[]
+custo_prod=[]
+custo_fixo=[]
+comissao_vendas=[]
+impostos=[]
+margem_lucro=[]
+
+
+cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
+VALUES(1,'caneta','caneta profisional',36,15,5,12,20,'Médio')""")
+cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
+VALUES(2,'Lápis','Preto B2',1,1,1,1,1,'Baixo')""")
+cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
+VALUES(3,'Caderno','Palmeiras',10,10,10,10,50,'Alto')""")
+cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
+VALUES(4,'Caderno','São Paulo',10,10,10,10,0,'Equilibrio')""")
+cursor.execute("""INSERT INTO estoque(id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
+VALUES(5,'Caderno','Corinthians',10,10,10,10,-20,'Prejuízo')""")
+cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
+VALUES(6,'Caderno','Ponte Preta',10,30,20,20,29.99,'Alto')""")
+
+conexao.commit()
+
+cursor.close
+conexao.close
