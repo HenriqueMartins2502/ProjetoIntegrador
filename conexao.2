@@ -11,31 +11,58 @@ else:
 cursor=conexao.cursor()
 
 #definição das listas
-
+estoque=[]
 id_prod=[]
 nome_prod=[]
 desc_prod=[]
-custo_prod=[]
+custo_prod=()
 custo_fixo=[]
 comissao_vendas=[]
 impostos=[]
 margem_lucro=[]
 
+cursor.execute("select id_prod from estoque")
+id_prod= cursor.fetchall()
 
-cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
-VALUES(1,'caneta','caneta profisional',36,15,5,12,20,'Médio')""")
-cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
-VALUES(2,'Lápis','Preto B2',1,1,1,1,1,'Baixo')""")
-cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
-VALUES(3,'Caderno','Palmeiras',10,10,10,10,50,'Alto')""")
-cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
-VALUES(4,'Caderno','São Paulo',10,10,10,10,0,'Equilibrio')""")
-cursor.execute("""INSERT INTO estoque(id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
-VALUES(5,'Caderno','Corinthians',10,10,10,10,-20,'Prejuízo')""")
-cursor.execute("""INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro,classificacao_lucro)
-VALUES(6,'Caderno','Ponte Preta',10,30,20,20,29.99,'Alto')""")
+cursor.execute("select nome_prod from estoque")
+nome_prod= cursor.fetchall()
+
+cursor.execute("select desc_prod from estoque")
+desc_prod= cursor.fetchall()
+
+cursor.execute("select custo_prod from estoque")
+custo_prod= cursor.fetchall()
+
+cursor.execute("select custo_fixo from estoque")
+custo_fixo= cursor.fetchall()
+
+cursor.execute("select comissao_vendas from estoque")
+comissao_vendas= cursor.fetchall()
+
+cursor.execute("select impostos from estoque")
+impostos= cursor.fetchall()
+
+cursor.execute("select margem_lucro from estoque")
+margem_lucro= cursor.fetchall()
+
+estoque.append(id_prod)
+estoque.append(nome_prod)
+estoque.append(desc_prod)
+estoque.append(custo_prod)
+estoque.append(custo_fixo)
+estoque.append(comissao_vendas)
+estoque.append(impostos)
+estoque.append(margem_lucro)
 
 conexao.commit()
 
 cursor.close
 conexao.close
+#calculo preços
+for i in range (custo_prod[0],[0]):
+    CP1=i
+print(CP1)
+    
+PV=custo_prod/(1-((custo_fixo+comissao_vendas+impostos+margem_lucro)/(100)) )
+print(PV)
+
