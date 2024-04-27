@@ -58,6 +58,8 @@ cursor.close
 conexao.close
 
 print(estoque)
+#FAZER ATÉ ADICIONAR OS 6 PRODUTOS
+#Calculo da Preço Venda
 
 PV=[]
 
@@ -77,36 +79,17 @@ ML2=margem_lucro[1]
 
 PV.append(CP2/(1-((CF2+CV2+IMP2+ML2)/(100))))
 
-CP3=custo_prod[2]
-CF3=custo_fixo[2]
-CV3=comissao_vendas[2]
-IMP3=impostos[2]
-ML3=margem_lucro[2]
+#Calculo da Renda Bruta
 
-PV.append(CP3/(1-((CF3+CV3+IMP3+ML3)/(100))))
+RB1=(PV[0]-CP1)
+RB2=(PV[1]-CP2)
 
-CP4=custo_prod[3]
-CF4=custo_fixo[3]
-CV4=comissao_vendas[3]
-IMP4=impostos[3]
-ML4=margem_lucro[3]
+#Calculo Outros Custos
 
-PV.append(CP4/(1-((CF4+CV4+IMP4+ML4)/(100))))
+OC1=(PV[0]*(CF1/100)+PV[0]*(CV1/100))+(PV[0]*(IMP1/100))
+OC2=(PV[1]*(CF2/100))+(PV[1]*(CV2/100))+(PV[1]*(IMP2/100))
 
-CP5=custo_prod[4]
-CF5=custo_fixo[4]
-CV5=comissao_vendas[4]
-IMP5=impostos[4]
-ML5=margem_lucro[4]
+#Formula % da Renda Bruta(porcenRB)
 
-PV.append(CP5/(1-((CF5+CV5+IMP5+ML5)/(100))))
-
-CP6=custo_prod[5]
-CF6=custo_fixo[5]
-CV6=comissao_vendas[5]
-IMP6=impostos[5]
-ML6=margem_lucro[5]
-
-PV.append(CP6/(1-((CF6+CV6+IMP6+ML6)/(100))))
-
-print(PV)
+porcenRB1=((RB1*100)/PV[0])
+porcenRB2=((RB2*100)/PV[1])
