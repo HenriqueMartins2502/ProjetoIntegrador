@@ -57,8 +57,7 @@ estoque.append(margem_lucro)
 cursor.close
 conexao.close
 
-print(estoque)
-#FAZER ATÉ ADICIONAR OS 6 PRODUTOS
+
 #Calculo da Preço Venda
 
 PV=[]
@@ -103,14 +102,6 @@ ML5=margem_lucro[4]
 
 PV.append(CP5/(1-((CF5+CV5+IMP5+ML5)/(100))))
 
-CP6=custo_prod[5]
-CF6=custo_fixo[5]
-CV6=comissao_vendas[5]
-IMP6=impostos[5]
-ML6=margem_lucro[5]
-
-PV.append(CP6/(1-((CF6+CV6+IMP6+ML6)/(100))))
-
 #Calculo da Renda Bruta
 
 RB1=(PV[0]-CP1)
@@ -118,7 +109,6 @@ RB2=(PV[1]-CP2)
 RB3=(PV[2]-CP3)
 RB4=(PV[3]-CP4)
 RB5=(PV[4]-CP5)
-RB6=(PV[5]-CP6)
 
 #Calculo Outros Custos
 
@@ -127,7 +117,6 @@ OC2=(PV[1]*(CF2/100))+(PV[1]*(CV2/100))+(PV[1]*(IMP2/100))
 OC3=(PV[2]*(CF3/100))+(PV[2]*(CV3/100))+(PV[2]*(IMP3/100))
 OC4=(PV[3]*(CF4/100))+(PV[3]*(CV4/100))+(PV[3]*(IMP4/100))
 OC5=(PV[4]*(CF5/100))+(PV[4]*(CV5/100))+(PV[4]*(IMP5/100))
-OC6=(PV[5]*(CF6/100))+(PV[5]*(CV6/100))+(PV[5]*(IMP6/100))
 
 #Formula % da Renda Bruta(porcenRB) e Custo de Pordutos
 
@@ -136,14 +125,12 @@ porcenRB2=((RB2*100)/PV[1])
 porcenRB3=((RB3*100)/PV[2])
 porcenRB4=((RB4*100)/PV[3])
 porcenRB5=((RB5*100)/PV[4])
-porcenRB6=((RB6*100)/PV[5])
 
 porcenCP1 = (100 * CP1/PV[0])
 porcenCP2 = (100 * CP2/PV[1])
 porcenCP3 = (100 * CP3/PV[2])
 porcenCP4 = (100 * CP4/PV[3])
 porcenCP5 = (100 * CP5/PV[4])
-porcenCP6 = (100 * CP6/PV[5])
 
 #Valores Brutos de CF, CV, IMP e ML
 
@@ -152,45 +139,40 @@ bCF2 = ((CF2 * PV[1])/100)
 bCF3 = ((CF3 * PV[2])/100)
 bCF4 = ((CF4 * PV[3])/100)
 bCF5 = ((CF5 * PV[4])/100)
-bCF6 = ((CF6 * PV[5])/100)
 
 bCV1 = ((CV1 * PV[0])/100)
 bCV2 = ((CV2 * PV[1])/100)
 bCV3 = ((CV3 * PV[2])/100)
 bCV4 = ((CV4 * PV[3])/100)
 bCV5 = ((CV5 * PV[4])/100)
-bCV6 = ((CV6 * PV[5])/100)
 
 bIMP1 = ((IMP1 * PV[0])/100)
 bIMP2 = ((IMP2 * PV[1])/100)
 bIMP3 = ((IMP3 * PV[2])/100)
 bIMP4 = ((IMP4 * PV[3])/100)
 bIMP5 = ((IMP5 * PV[4])/100)
-bIMP6 = ((IMP6 * PV[5])/100)
 
 bML1 = ((ML1 * PV[0])/100)
 bML2 = ((ML2 * PV[1])/100)
 bML3 = ((ML3 * PV[2])/100)
 bML4 = ((ML4 * PV[3])/100)
 bML5 = ((ML5 * PV[4])/100)
-bML6 = ((ML6 * PV[5])/100)
 
 
 #Saída
 
 #p1
-print (f"Produto:{nome_prod[0]}   Especifcacão:{desc_prod[0]}")
-print (" ")
-print (f"Descriçao:                            Valor:   %")
-print (f"A. Preço de Venda                  =  R${PV[0]}   | 100.0%")
-print (f"B. Custo de Aquisição (Fornecedor) =  R${CP1}   |  {porcenCP1}%") 
-print (f"C. Receita Bruta                   =  R${RB1}   |  {porcenRB1}%")
-print (f"D. Custo Fixo/Administrativo       =  R${bCF1}  |  {CF1}%")
-print (f"E. Comissão de Vendas              =  R${bCV1}   |   {CV1}%")
-print (f"F. Impostos                        =  R${bIMP1}    |  {IMP1}%")
-print (f"G. Outros Custos (D+E+F)           =  R${OC1}   |  {IMP1+CV1+CF1}%")
-print (f"H. Rentabilidade (C-G)             =  R${bML1}   |  {ML1}%")
-
+print (f"Produto: {nome_prod[0]}   Especifcacão: {desc_prod[0]}")
+print ("---------------------------------------------------------")
+print (f"Descriçao:                            Valor       %")
+print (f"A. Preço de Venda                  =  R${PV[0]:.2f}     100.0%")
+print (f"B. Custo de Aquisição (Fornecedor) =  R${CP1:.2f}     {porcenCP1:.2f}%") 
+print (f"C. Receita Bruta                   =  R${RB1:.2f}     {porcenRB1:.2f}%")
+print (f"D. Custo Fixo/Administrativo       =  R${bCF1:.2f}     {CF1:.2f}%")
+print (f"E. Comissão de Vendas              =  R${bCV1:.2f}      {CV1:.2f}%")
+print (f"F. Impostos                        =  R${bIMP1:.2f}      {IMP1:.2f}%")
+print (f"G. Outros Custos (D+E+F)           =  R${OC1:.2f}     {IMP1+CV1+CF1:.2f}%")
+print (f"H. Rentabilidade (C-G)             =  R${bML1:.2f}     {ML1:.2f}%")
 if ML1 > 20:
     print("O Lucro Deste Produto é Alto.")
 elif ML1 > 10 and ML1 <= 20:
@@ -206,17 +188,17 @@ print (" ")
 print (" ")
 
 #p2
-print (f"Produto:{nome_prod[1]}   Especifcacão:{desc_prod[1]}")
-print (" ")
-print (f"Descriçao:                            Valor:   %")
-print (f"A. Preço de Venda                  =  R${PV[1]}   | 100.0%")
-print (f"B. Custo de Aquisição (Fornecedor) =  R${CP2}   |  {porcenCP2}%") 
-print (f"C. Receita Bruta                   =  R${RB2}   |  {porcenRB2}%")
-print (f"D. Custo Fixo/Administrativo       =  R${bCF2}  |  {CF2}%")
-print (f"E. Comissão de Vendas              =  R${bCV2}   |   {CV2}%")
-print (f"F. Impostos                        =  R${bIMP2}    |  {IMP2}%")
-print (f"G. Outros Custos (D+E+F)           =  R${OC2}   |  {IMP2+CV2+CF2}%")
-print (f"H. Rentabilidade (C-G)             =  R${bML2}   |  {ML2}%")
+print (f"Produto: {nome_prod[1]}   Especifcacão: {desc_prod[1]}")
+print ("---------------------------------------------------------")
+print (f"Descriçao:                            Valor       %")
+print (f"A. Preço de Venda                  =  R${PV[1]:.2f}     100.0%")
+print (f"B. Custo de Aquisição (Fornecedor) =  R${CP2:.2f}     {porcenCP2:.2f}%") 
+print (f"C. Receita Bruta                   =  R${RB2:.2f}      {porcenRB2:.2f}%")
+print (f"D. Custo Fixo/Administrativo       =  R${bCF2:.2f}      {CF2:.2f}%")
+print (f"E. Comissão de Vendas              =  R${bCV2:.2f}      {CV2:.2f}%")
+print (f"F. Impostos                        =  R${bIMP2:.2f}      {IMP2:.2f}%")
+print (f"G. Outros Custos (D+E+F)           =  R${OC2:.2f}      {IMP2+CV2+CF2:.2f}%")
+print (f"H. Rentabilidade (C-G)             =  R${bML2:.2f}      {ML2:.2f}%")
 
 if ML2 > 20:
     print("O Lucro Deste Produto é Alto.")
@@ -233,17 +215,17 @@ print (" ")
 print (" ")
 
 #p3
-print (f"Produto:{nome_prod[2]}   Especifcacão:{desc_prod[2]}")
-print (" ")
-print (f"Descriçao:                            Valor:   %")
-print (f"A. Preço de Venda                  =  R${PV[2]}   | 100.0%")
-print (f"B. Custo de Aquisição (Fornecedor) =  R${CP3}   |  {porcenCP3}%") 
-print (f"C. Receita Bruta                   =  R${RB3}   |  {porcenRB3}%")
-print (f"D. Custo Fixo/Administrativo       =  R${bCF3}  |  {CF3}%")
-print (f"E. Comissão de Vendas              =  R${bCV3}   |   {CV3}%")
-print (f"F. Impostos                        =  R${bIMP3}    |  {IMP3}%")
-print (f"G. Outros Custos (D+E+F)           =  R${OC3}   |  {IMP3+CV3+CF3}%")
-print (f"H. Rentabilidade (C-G)             =  R${bML3}   |  {ML3}%")
+print (f"Produto: {nome_prod[2]}   Especifcacão: {desc_prod[2]}")
+print ("---------------------------------------------------------")
+print (f"Descriçao:                            Valor        %")
+print (f"A. Preço de Venda                  =  R${PV[2]:.2f}     100.0%")
+print (f"B. Custo de Aquisição (Fornecedor) =  R${CP3:.2f}      {porcenCP3:.2f}%") 
+print (f"C. Receita Bruta                   =  R${RB3:.2f}     {porcenRB3:.2f}%")
+print (f"D. Custo Fixo/Administrativo       =  R${bCF3:.2f}      {CF3:.2f}%")
+print (f"E. Comissão de Vendas              =  R${bCV3:.2f}      {CV3:.2f}%")
+print (f"F. Impostos                        =  R${bIMP3:.2f}      {IMP3:.2f}%")
+print (f"G. Outros Custos (D+E+F)           =  R${OC3:.2f}     {IMP3+CV3+CF3:.2f}%")
+print (f"H. Rentabilidade (C-G)             =  R${bML3:.2f}     {ML3:.2f}%")
 
 if ML3 > 20:
     print("O Lucro Deste Produto é Alto.")
@@ -260,17 +242,17 @@ print (" ")
 print (" ")
 
 #p4
-print (f"Produto:{nome_prod[3]}   Especifcacão:{desc_prod[3]}")
-print (" ")
-print (f"Descriçao:                            Valor:   %")
-print (f"A. Preço de Venda                  =  R${PV[3]}   | 100.0%")
-print (f"B. Custo de Aquisição (Fornecedor) =  R${CP4}   |  {porcenCP4}%") 
-print (f"C. Receita Bruta                   =  R${RB4}   |  {porcenRB4}%")
-print (f"D. Custo Fixo/Administrativo       =  R${bCF4}  |  {CF4}%")
-print (f"E. Comissão de Vendas              =  R${bCV4}   |   {CV4}%")
-print (f"F. Impostos                        =  R${bIMP4}    |  {IMP4}%")
-print (f"G. Outros Custos (D+E+F)           =  R${OC4}   |  {IMP4+CV4+CF4}%")
-print (f"H. Rentabilidade (C-G)             =  R${bML4}   |  {ML4}%")
+print (f"Produto: {nome_prod[3]}   Especifcacão: {desc_prod[3]}")
+print ("--------------------------------------------------------")
+print (f"Descriçao:                            Valor       %")
+print (f"A. Preço de Venda                  =  R${PV[3]:.2f}     100.0%")
+print (f"B. Custo de Aquisição (Fornecedor) =  R${CP4:.2f}     {porcenCP4:.2f}%") 
+print (f"C. Receita Bruta                   =  R${RB4:.2f}      {porcenRB4:.2f}%")
+print (f"D. Custo Fixo/Administrativo       =  R${bCF4:.2f}      {CF4:.2f}%")
+print (f"E. Comissão de Vendas              =  R${bCV4:.2f}      {CV4:.2f}%")
+print (f"F. Impostos                        =  R${bIMP4:.2f}      {IMP4:.2f}%")
+print (f"G. Outros Custos (D+E+F)           =  R${OC4:.2f}      {IMP4+CV4+CF4:.2f}%")
+print (f"H. Rentabilidade (C-G)             =  R${bML4:.2f}      {ML4:.2f}%")
 
 if ML4 > 20:
     print("O Lucro Deste Produto é Alto.")
@@ -287,17 +269,17 @@ print (" ")
 print (" ")
 
 #p5
-print (f"Produto:{nome_prod[4]}   Especifcacão:{desc_prod[4]}")
-print (" ")
-print (f"Descriçao:                            Valor:   %")
-print (f"A. Preço de Venda                  =  R${PV[4]}   | 100.0%")
-print (f"B. Custo de Aquisição (Fornecedor) =  R${CP5}   |  {porcenCP5}%") 
-print (f"C. Receita Bruta                   =  R${RB5}   |  {porcenRB5}%")
-print (f"D. Custo Fixo/Administrativo       =  R${bCF5}  |  {CF5}%")
-print (f"E. Comissão de Vendas              =  R${bCV5}   |   {CV5}%")
-print (f"F. Impostos                        =  R${bIMP5}    |  {IMP5}%")
-print (f"G. Outros Custos (D+E+F)           =  R${OC5}   |  {IMP5+CV5+CF5}%")
-print (f"H. Rentabilidade (C-G)             =  R${bML5}   |  {ML5}%")
+print (f"Produto: {nome_prod[4]}   Especifcacão: {desc_prod[4]}")
+print ("------------------------------------------------------------------------")
+print (f"Descriçao:                            Valor              %")
+print (f"A. Preço de Venda                  =  R${PV[4]:.2f}     100.0%")
+print (f"B. Custo de Aquisição (Fornecedor) =  R${CP5:.2f}     {porcenCP5:.2f}%") 
+print (f"C. Receita Bruta                   =  R${RB5:.2f}      {porcenRB5:.2f}%")
+print (f"D. Custo Fixo/Administrativo       =  R${bCF5:.2f}      {CF5:.2f}%")
+print (f"E. Comissão de Vendas              =  R${bCV5:.2f}      {CV5:.2f}%")
+print (f"F. Impostos                        =  R${bIMP5:.2f}      {IMP5:.2f}%")
+print (f"G. Outros Custos (D+E+F)           =  R${OC5:.2f}      {IMP5+CV5+CF5:.2f}%")
+print (f"H. Rentabilidade (C-G)             =  R${bML5:.2f}    {ML5:.2f}%\n\n")
 
 if ML5 > 20:
     print("O Lucro Deste Produto é Alto.")
@@ -309,31 +291,3 @@ elif ML5 == 0:
     print("Este Produto Não Gera Lucro ou Pejuízo (Equilíbrio).")
 elif ML5 < 0:
     print("Este Produto Gera Prejuízo.")
-
-print (" ")
-print (" ")
-
-#p6
-print (f"Produto:{nome_prod[5]}   Especifcacão:{desc_prod[5]}")
-print (" ")
-print (f"Descriçao:                            Valor:   %")
-print (f"A. Preço de Venda                  =  R${PV[5]}   | 100.0%")
-print (f"B. Custo de Aquisição (Fornecedor) =  R${CP6}   |  {porcenCP6}%") 
-print (f"C. Receita Bruta                   =  R${RB6}   |  {porcenRB6}%")
-print (f"D. Custo Fixo/Administrativo       =  R${bCF6}  |  {CF6}%")
-print (f"E. Comissão de Vendas              =  R${bCV6}   |   {CV6}%")
-print (f"F. Impostos                        =  R${bIMP6}    |  {IMP6}%")
-print (f"G. Outros Custos (D+E+F)           =  R${OC6}   |  {IMP6+CV6+CF6}%")
-print (f"H. Rentabilidade (C-G)             =  R${bML6}   |  {ML6}%")
-
-if ML6 > 20:
-    print("O Lucro Deste Produto é Alto.")
-elif ML6 > 10 and ML6 <= 20:
-    print("O Lucro Deste Produto é Médio.")
-elif ML6 > 0 and ML6 <= 10:
-    print("O Lucro Deste Produto é Baixo.")
-elif ML6 == 0:
-    print("Este Produto Não Gera Lucro ou Pejuízo (Equilíbrio).")
-elif ML6 < 0:
-    print("Este Produto Gera Prejuízo.")
-
