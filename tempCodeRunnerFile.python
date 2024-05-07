@@ -1,3 +1,0 @@
-nome = "João"
-idade = 30
-print("Nome: {}, Idade: {}".format(nome, idade))
