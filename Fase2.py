@@ -57,7 +57,7 @@ estoque.append(margem_lucro)
 cursor.close
 conexao.close
 
-for i in range (len(estoque)):
+for i in range (len(id_prod)):
     PV=custo_prod[i] / (1 - ((custo_fixo[i] + comissao_vendas[i] + impostos[i] + margem_lucro[i])/100))
 
     print (f"Produto: {nome_prod[i]}   Especifcacão: {desc_prod[i]}")
