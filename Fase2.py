@@ -20,8 +20,6 @@ custo_fixo=[]
 comissao_vendas=[]
 impostos=[]
 margem_lucro=[]
-
-cont=0
     
 cursor.execute("select id_prod from estoque")
 id_prod = [row[0] for row in cursor.fetchall()]
