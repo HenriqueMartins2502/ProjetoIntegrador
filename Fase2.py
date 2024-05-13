@@ -22,7 +22,6 @@ impostos=[]
 margem_lucro=[]
 
 cont=0
-indice = 0
     
 cursor.execute("select id_prod from estoque")
 id_prod = [row[0] for row in cursor.fetchall()]
@@ -60,30 +59,28 @@ estoque.append(margem_lucro)
 cursor.close
 conexao.close
 
+for i in range (len(estoque)):
+    PV=custo_prod[i] / (1 - ((custo_fixo[i] + comissao_vendas[i] + impostos[i] + margem_lucro[i])/100))
 
-for i in (estoque):
-    PV=custo_prod[indice] / (1 - ((custo_fixo[indice] + comissao_vendas[indice] + impostos[indice] + margem_lucro[indice])/100))
-
-    print (f"Produto: {nome_prod[indice]}   Especifcacão: {desc_prod[indice]}")
+    print (f"Produto: {nome_prod[i]}   Especifcacão: {desc_prod[i]}")
     print ("---------------------------------------------------------")
     print (f"Descriçao:                            Valor       %")
     print (f"A. Preço de Venda                  =  R${PV:.2f}     100.0%")
-    print (f"B. Custo de Aquisição (Fornecedor) =  R${custo_prod[indice]:.2f}     {(100*custo_prod[indice]/PV):.2f}%") 
-    print (f"C. Receita Bruta                   =  R${(PV-custo_prod[indice]):.2f}     {(((PV-custo_prod[indice])*100)/PV):.2f}%")
-    print (f"D. Custo Fixo/Administrativo       =  R${((custo_fixo[indice]*PV)/100):.2f}     {custo_fixo[indice]:.2f}%")
-    print (f"E. Comissão de Vendas              =  R${((comissao_vendas[indice]*PV)/100):.2f}      {comissao_vendas[indice]:.2f}%")
-    print (f"F. Impostos                        =  R${((impostos[indice]*PV)/100):.2f}      {impostos[indice]:.2f}%")
-    print (f"G. Outros Custos (D+E+F)           =  R${(PV*(custo_fixo[indice]/100)+PV*(comissao_vendas[indice]/100)+PV*(impostos[indice]/100)):.2f}     {impostos[indice]+comissao_vendas[indice]+custo_fixo[indice]:.2f}%")
-    print (f"H. Rentabilidade (C-G)             =  R${((margem_lucro[indice]*PV)/100):.2f}     {margem_lucro[indice]:.2f}%")
+    print (f"B. Custo de Aquisição (Fornecedor) =  R${custo_prod[i]:.2f}     {(100*custo_prod[i]/PV):.2f}%") 
+    print (f"C. Receita Bruta                   =  R${(PV-custo_prod[i]):.2f}     {(((PV-custo_prod[i])*100)/PV):.2f}%")
+    print (f"D. Custo Fixo/Administrativo       =  R${((custo_fixo[i]*PV)/100):.2f}     {custo_fixo[i]:.2f}%")
+    print (f"E. Comissão de Vendas              =  R${((comissao_vendas[i]*PV)/100):.2f}      {comissao_vendas[i]:.2f}%")
+    print (f"F. Impostos                        =  R${((impostos[i]*PV)/100):.2f}      {impostos[i]:.2f}%")
+    print (f"G. Outros Custos (D+E+F)           =  R${(PV*(custo_fixo[i]/100)+PV*(comissao_vendas[i]/100)+PV*(impostos[i]/100)):.2f}     {impostos[i]+comissao_vendas[i]+custo_fixo[i]:.2f}%")
+    print (f"H. Rentabilidade (C-G)             =  R${((margem_lucro[i]*PV)/100):.2f}     {margem_lucro[i]:.2f}%")
 
-    if margem_lucro[indice] > 20:
+    if margem_lucro[i] > 20:
         print("\nO Lucro Deste Produto é Alto.\n")
-    elif margem_lucro[indice] > 10 and margem_lucro[indice] <= 20:
+    elif margem_lucro[i] > 10 and margem_lucro[i] <= 20:
         print("\nO Lucro Deste Produto é Médio.\n")
-    elif margem_lucro[indice] > 0 and margem_lucro[indice] <= 10:
+    elif margem_lucro[i] > 0 and margem_lucro[i] <= 10:
         print("\nO Lucro Deste Produto é Baixo.\n")
-    elif margem_lucro[indice] == 0:
+    elif margem_lucro[i] == 0:
         print("\nEste Produto Não Gera Lucro ou Pejuízo (Equilíbrio).\n")
-    elif margem_lucro[indice] < 0:
+    elif margem_lucro[i] < 0:
         print("\nEste Produto Gera Prejuízo.\n")
-    indice+=1
