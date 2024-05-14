@@ -1,0 +1,14 @@
+CREATE TABLE ESTOQUE (
+id_prod number(6) NOT NULL,
+nome_prod varchar2(30) NOT NULL,
+desc_prod varchar2(100),
+custo_prod number(7) NOT NULL,
+custo_fixo number(2) NOT NULL,
+comissao_vendas number(2) NOT NULL,
+impostos number(2) NOT NULL,
+margem_lucro number(2) NOT NULL,
+CONSTRAINT pk_id PRIMARY KEY (id_prod)
+);
+
+INSERT INTO estoque (id_prod,nome_prod,desc_prod,custo_prod,custo_fixo,comissao_vendas,impostos,margem_lucro) 
+VALUES (1,'Caneta','Caneta Profissional',36,15,5,12,20)
