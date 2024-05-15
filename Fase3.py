@@ -37,15 +37,12 @@ while (num != 0):
         porcen_IMP = float(input("Digite os Impostos Sobre o Produto:"))
         porcen_ML = float(input("Digite a Margem de Lucro do Produto:"))
         
-        PV = (CP/(1-((porcen_CF+porcen_CV+porcen_IMP+porcen_ML)/100)))
-        
-        RB = PV - CP
-        
         cursor.execute (f"""INSERT INTO estoque (id_prod, nome_prod, desc_prod, custo_prod, custo_fixo, comissao_vendas, impostos, margem_lucro) 
         VALUES ({CodP}, '{Nome}', '{Desc}', {CP}, {porcen_CF}, {porcen_CV}, {porcen_IMP}, {porcen_ML})""")
 
         conexao.commit()
         print('-'*50)
         print("PRODUTO INSERIDO COM SUCESSO")
-        cursor.close()
-        conexao.close()
+cursor.close()
+conexao.close()
+     
