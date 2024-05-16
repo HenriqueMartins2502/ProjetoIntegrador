@@ -3,12 +3,11 @@ try:
  conexao = oracledb.connect(
  user="BD150224114",
  password="Mwabf7",
- dsn="172.16.12.14/xe ")
+ dsn="BD-ACD/xe ")
 except Exception as erro:
  print ('Erro em conexão', erro)
 else:
  print ("Conectado", conexao.version)
- 
 cursor=conexao.cursor()
 
 num = 1
@@ -24,7 +23,7 @@ while (num != 0):
     print ("0. Sair do Sistema")
     
 
-    num = int(input("Digite para Selecionar: "))
+    num = int(input("Digite para Selecionar:"))
     print('-'*50)
     if (num == 1):
         print(" ///CADASTRO DE PRODUTOS///")
@@ -44,7 +43,7 @@ while (num != 0):
         conexao.commit()
         print('-'*50)
         print("PRODUTO INSERIDO COM SUCESSO")
-    
+     
     if (num == 2):
 
         menu = 1
@@ -60,7 +59,7 @@ while (num != 0):
                 cursor.execute (f"""UPDATE estoque
                 SET nome_prod = '{novo_nome}'
                 WHERE id_prod = {CodP}""")
-                
+                print("NOME ALTERADO COM SUCESSO")
 
             if (menu == 2):
                 print('-'*50)
@@ -68,14 +67,15 @@ while (num != 0):
                 cursor.execute (f"""UPDATE estoque
                 SET desc_prod = '{nova_descricao}'
                 WHERE id_prod = {CodP}""")  
-
+                print("DESCRIÇÃO ALTERADA COM SUCESSO")
 
             if (menu == 3):
                 print('-'*50)
                 novo_CP = input("Digite o Novo Custo do Produto: ")
                 cursor.execute (f"""UPDATE estoque
                 SET custo_prod = {novo_CP}
-                WHERE id_prod = {CodP}""")    
+                WHERE id_prod = {CodP}""") 
+                print("CUSTO DO PRODUTO ALTERADO COM SUCESSO")  
 
 
             if (menu == 4):
@@ -84,6 +84,7 @@ while (num != 0):
                 cursor.execute (f"""UPDATE estoque
                 SET custo_fixo = {novo_CF}
                 WHERE id_prod = {CodP}""") 
+                print("CUSTO FIXO ALTERADO COM SUCESSO")
 
 
             if (menu == 5):
@@ -91,7 +92,8 @@ while (num != 0):
                 nova_CV = input("Digite a Nova Comissão de Vendas do Produto: ")
                 cursor.execute (f"""UPDATE estoque
                 SET comissao_vendas = {nova_CV}
-                WHERE id_prod = {CodP}""")      
+                WHERE id_prod = {CodP}""")    
+                print("COMISSÃO DE VENDAS ALTERADO COM SUCESSO")  
 
 
             if (menu == 6):
@@ -100,6 +102,7 @@ while (num != 0):
                 cursor.execute (f"""UPDATE estoque
                 SET impostos = {novo_IMP}
                 WHERE id_prod = {CodP}""") 
+                print("IMPOSTO ALTERADO COM SUCESSO")
 
             if (menu == 7):
                 print('-'*50)
@@ -107,7 +110,7 @@ while (num != 0):
                 cursor.execute (f"""UPDATE estoque
                 SET margem_lucro = {nova_ML}
                 WHERE id_prod = {CodP}""")
-                
+                print("MARGEM DE LUCRO ALTERADA COM SUCESSO")
             conexao.commit()
 cursor.close
 conexao.close
