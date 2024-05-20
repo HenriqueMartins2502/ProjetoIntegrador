@@ -113,13 +113,5 @@ while (num != 0):
                 print("MARGEM DE LUCRO ALTERADA COM SUCESSO")
             conexao.commit()
 
-        if num == 3:
-            print('-'*50)
-            CodP = int(input("Digite o Código do Produto que Deseja Apagar os Dados: "))
-            print('-'*50)
-            cursor.execute (f"""DELETE estoque
-            WHERE id_prod = {CodP}""")
-            print("PRODUTO DELETADO COM SUCESSO")
-            conexao.commit()
 cursor.close
 conexao.close
