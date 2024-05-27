@@ -37,34 +37,73 @@ while (num != 0):
         porcen_IMP = float(input("Digite os Impostos Sobre o Produto:"))
         porcen_ML = float(input("Digite a Margem de Lucro do Produto:"))
 
-        import numpy as np
+        if (len(Desc)%2 != 0):
+            Desc += (Desc[-1:])
+            
+            import numpy as np
 
-        Desc = Desc.replace(" ", "")
+            Desc = Desc.replace(" ", "")
 
-        Desc = Desc.lower()
+            Desc = Desc.lower()
 
-        alfabeto = "abcdefghijklmnopqrstuvwxyz"
+            alfabeto = "abcdefghijklmnopqrstuvwxyz"
 
-        chave = "mike"
+            chave = "mike"
 
-        letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
-        num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
+            letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
+            num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
 
-        chave_num = [letra_to_num[i] for i in chave]
+            chave_num = [letra_to_num[i] for i in chave]
 
-        chave_matriz = np.array(chave_num).reshape(2, 2)
+            chave_matriz = np.array(chave_num).reshape(2, 2)
 
-        Desc_num = [letra_to_num[i] for i in Desc]
+            Desc_num = [letra_to_num[i] for i in Desc]
 
-        Desc_array = np.array(Desc_num)
+            Desc_array = np.array(Desc_num)
 
-        Desc_pares = np.split(Desc_array, len(Desc)//2)
+            Desc_pares = np.split(Desc_array, len(Desc)//2)
 
-        Cod_pares = [np.matmul(Desc_pares[i], chave_matriz) % 26 for i in range(len(Desc)//2)]
+            Cod_pares = [np.matmul(Desc_pares[i], chave_matriz) % 26 for i in range(len(Desc)//2)]
 
-        Cod_array = np.concatenate(Cod_pares)
+            Cod_array = np.concatenate(Cod_pares)
 
-        Desc_Cod = [num_to_letra[Cod_array[i]] for i in range(len(Cod_array))]
+            Desc_Co = [num_to_letra[Cod_array[i]] for i in range(len(Cod_array))]
+
+            Desc_Co = ''.join(Desc_Co)
+
+            Desc_Cod = Desc_Co[:-1]
+
+        else:
+            import numpy as np
+
+            Desc = Desc.replace(" ", "")
+
+            Desc = Desc.lower()
+
+            alfabeto = "abcdefghijklmnopqrstuvwxyz"
+
+            chave = "mike"
+
+            letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
+            num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
+
+            chave_num = [letra_to_num[i] for i in chave]
+
+            chave_matriz = np.array(chave_num).reshape(2, 2)
+
+            Desc_num = [letra_to_num[i] for i in Desc]
+
+            Desc_array = np.array(Desc_num)
+
+            Desc_pares = np.split(Desc_array, len(Desc)//2)
+
+            Cod_pares = [np.matmul(Desc_pares[i], chave_matriz) % 26 for i in range(len(Desc)//2)]
+
+            Cod_array = np.concatenate(Cod_pares)
+
+            Desc_Cod = [num_to_letra[Cod_array[i]] for i in range(len(Cod_array))]
+
+            Desc_Cod = ''.join(Desc_Cod)
         
         cursor.execute (f"""INSERT INTO estoque (id_prod, nome_prod, desc_prod, custo_prod, custo_fixo, comissao_vendas, impostos, margem_lucro) 
         VALUES ({CodP}, '{Nome}', '{Desc_Cod}', {CP}, {porcen_CF}, {porcen_CV}, {porcen_IMP}, {porcen_ML})""")
