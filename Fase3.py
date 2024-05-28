@@ -132,8 +132,76 @@ while (num != 0):
             if (menu == 2):
                 print('-'*50)
                 nova_descricao = input("Digite a Nova Descrição do Produto: ")
+                if (len(nova_descricao)%2 != 0):
+                    nova_descricao += (nova_descricao[-1:])
+            
+                    import numpy as np
+
+                    nova_descricao = nova_descricao.replace(" ", "")
+
+                    nova_descricao = nova_descricao.lower()
+
+                    alfabeto = "abcdefghijklmnopqrstuvwxyz"
+
+                    chave = "mike"
+
+                    letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
+                    num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
+
+                    chave_num = [letra_to_num[i] for i in chave]
+
+                    chave_matriz = np.array(chave_num).reshape(2, 2)
+
+                    Desc_num = [letra_to_num[i] for i in nova_descricao]
+
+                    Desc_array = np.array(Desc_num)
+
+                    Desc_pares = np.split(Desc_array, len(nova_descricao)//2)
+
+                    Cod_pares = [np.matmul(Desc_pares[i], chave_matriz) % 26 for i in range(len(nova_descricao)//2)]
+
+                    Cod_array = np.concatenate(Cod_pares)
+
+                    Desc_Co = [num_to_letra[Cod_array[i]] for i in range(len(Cod_array))]
+
+                    Desc_Co = ''.join(Desc_Co)
+
+                    Desc_Cod = Desc_Co[:-1]
+
+                else:
+                    import numpy as np
+
+                    nova_descricao = nova_descricao.replace(" ", "")
+
+                    nova_descricao = nova_descricao.lower()
+
+                    alfabeto = "abcdefghijklmnopqrstuvwxyz"
+
+                    chave = "mike"
+
+                    letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
+                    num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
+
+                    chave_num = [letra_to_num[i] for i in chave]
+
+                    chave_matriz = np.array(chave_num).reshape(2, 2)
+
+                    Desc_num = [letra_to_num[i] for i in nova_descricao]
+
+                    Desc_array = np.array(Desc_num)
+
+                    Desc_pares = np.split(Desc_array, len(nova_descricao)//2)
+
+                    Cod_pares = [np.matmul(Desc_pares[i], chave_matriz) % 26 for i in range(len(nova_descricao)//2)]
+
+                    Cod_array = np.concatenate(Cod_pares)
+
+                    Desc_Cod = [num_to_letra[Cod_array[i]] for i in range(len(Cod_array))]
+
+                    Desc_Cod = ''.join(Desc_Cod)
+        
                 cursor.execute (f"""UPDATE estoque
-                SET desc_prod = '{nova_descricao}'
+                SET desc_prod = '{Desc_Cod}'
                 WHERE id_prod = {CodP}""")  
                 print("DESCRIÇÃO ALTERADA COM SUCESSO")
 
