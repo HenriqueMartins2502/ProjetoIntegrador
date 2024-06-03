@@ -12,10 +12,11 @@ cursor=conexao.cursor()
 
 num = 1
 
+print('-'*50)
+print(" Bem vindo ao software de controle de estoque")
+print('-'*50)
+
 while (num != 0):
-    print('-'*50)
-    print(" Bem vindo ao software de controle de estoque")
-    print('-'*50)
     print ("1. Inserir Produto")
     print ("2. Alterar Produto")
     print ("3. Apagar Produto")
@@ -48,7 +49,7 @@ while (num != 0):
 
             alfabeto = "abcdefghijklmnopqrstuvwxyz"
 
-            chave = "mike"
+            chave = "test"
 
             letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
             num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
@@ -82,7 +83,7 @@ while (num != 0):
 
             alfabeto = "abcdefghijklmnopqrstuvwxyz"
 
-            chave = "mike"
+            chave = "test"
 
             letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
             num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
@@ -143,7 +144,7 @@ while (num != 0):
 
                     alfabeto = "abcdefghijklmnopqrstuvwxyz"
 
-                    chave = "mike"
+                    chave = "test"
 
                     letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
                     num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
@@ -177,7 +178,7 @@ while (num != 0):
 
                     alfabeto = "abcdefghijklmnopqrstuvwxyz"
 
-                    chave = "mike"
+                    chave = "test"
 
                     letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
                     num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
@@ -389,35 +390,35 @@ while (num != 0):
             impostos=[]
             margem_lucro=[]
                 
-            cursor.execute(f"""select id_prod from estoque
+            cursor.execute("""select id_prod from estoque
                            where id_prod = {ID}""")
             id_prod = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute(f"""select nome_prod from estoque
+            cursor.execute("""select nome_prod from estoque
                            where id_prod = {ID}""")
             nome_prod = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute(f"""select desc_prod from estoque
+            cursor.execute("""select desc_prod from estoque
                            where id_prod = {ID}""")
             desc_prod = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute(f"""select custo_prod from estoque
+            cursor.execute("""select custo_prod from estoque
                            where id_prod = {ID}""")
             custo_prod = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute(f"""select custo_fixo from estoque
+            cursor.execute("""select custo_fixo from estoque
                            where id_prod = {ID}""")
             custo_fixo = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute(f"""select comissao_vendas from estoque
+            cursor.execute("""select comissao_vendas from estoque
                            where id_prod = {ID}""")
             comissao_vendas = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute(f"""select impostos from estoque
+            cursor.execute("""select impostos from estoque
                            where id_prod = {ID}""")
             impostos = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute(f""""select margem_lucro from estoque
+            cursor.execute(""""select margem_lucro from estoque
                            where id_prod = {ID}""")
             margem_lucro = [row[0] for row in cursor.fetchall()]
 
@@ -429,6 +430,9 @@ while (num != 0):
             estoque.append(comissao_vendas)
             estoque.append(impostos)
             estoque.append(margem_lucro)
+
+            cursor.close
+            conexao.close
 
             import numpy as np
 
@@ -501,11 +505,9 @@ while (num != 0):
         if (num_2 == 0):
             continue
 
-        elif (num == 0):
-            print ('-'*50)
-            print ("Programa Finalizado.")\
+elif (num == 0):
+    print ('-'*50)
+    print ("Programa Finalizado.")\
 
-        else:
-            print ("Opcão Inválida.")
-cursor.close
-conexao.close
+else:
+    print ("Opcão Inválida.")
