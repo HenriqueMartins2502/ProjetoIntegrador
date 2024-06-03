@@ -1,0 +1,124 @@
+import numpy as np
+
+Desc = input("desc:")
+
+if (len(Desc)%2 != 0):
+        Desc = Desc.replace(" ", "")
+        Desc = Desc.lower()
+        Desc += (Desc[-1:])
+
+        alfabeto = "abcdefghijklmnopqrstuvwxyz"
+
+        chave = "test"
+
+        letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
+        num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
+
+        chave_num = [letra_to_num[i] for i in chave]
+
+        chave_matriz = np.array(chave_num).reshape(2, 2)
+
+        Desc_num = [letra_to_num[i] for i in Desc]
+
+        Desc_array = np.array(Desc_num)
+
+        Desc_pares = np.split(Desc_array, len(Desc)//2)
+
+        Cod_pares = [np.matmul(Desc_pares[i], chave_matriz) % 26 for i in range(len(Desc)//2)]
+
+        Cod_array = np.concatenate(Cod_pares)
+
+        Desc_Cod = [num_to_letra[Cod_array[i]] for i in range(len(Cod_array))]
+
+        Desc_Cod = ''.join(Desc_Cod)
+
+
+
+        
+
+else:
+
+    Desc = Desc.replace(" ", "")
+
+    Desc = Desc.lower()
+
+    alfabeto = "abcdefghijklmnopqrstuvwxyz"
+
+    chave = "test"
+
+    letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
+    num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
+
+    chave_num = [letra_to_num[i] for i in chave]
+
+    chave_matriz = np.array(chave_num).reshape(2, 2)
+
+    Desc_num = [letra_to_num[i] for i in Desc]
+
+    Desc_array = np.array(Desc_num)
+
+    Desc_pares = np.split(Desc_array, len(Desc)//2)
+
+    Cod_pares = [np.matmul(Desc_pares[i], chave_matriz) % 26 for i in range(len(Desc)//2)]
+
+    Cod_array = np.concatenate(Cod_pares)
+
+    Desc_Cod = [num_to_letra[Cod_array[i]] for i in range(len(Cod_array))]
+
+    Desc_Cod = ''.join(Desc_Cod)
+
+print(Desc_Cod)
+
+
+alfabeto = "abcdefghijklmnopqrstuvwxyz"
+
+chave = "test"          
+
+letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))            
+num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
+            
+chave_num = [letra_to_num[i] for i in chave]            
+
+chave_matriz = np.array(chave_num).reshape(2, 2)            
+
+matriz_deci = np.linalg.inv(chave_matriz) * round(np.linalg.det(chave_matriz))            
+
+chave_inv = (9 * matriz_deci) % 26        
+
+
+if (len(Desc_Cod)%2 != 0 ):
+                    Desc_Cod += (Desc_Cod[-1:])
+
+                    Desc_num = [letra_to_num[i] for i in Desc_Cod]
+
+                    Desc_array = np.array(Desc_num)
+
+                    Desc_pares = np.split(Desc_array, len(Desc_num)//2)
+
+                    Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
+
+                    Desc_array = np.concatenate(Desc_matriz)
+
+                    Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
+
+                    Desc_deci = ''.join(Desc_deci)
+
+                    Desc_deci = Desc_deci[:-1]
+
+elif (len(Desc_Cod)%2 == 0 ):
+
+                    Desc_num = [letra_to_num[i] for i in Desc_Cod]
+
+                    Desc_array = np.array(Desc_num)
+
+                    Desc_pares = np.split(Desc_array, len(Desc_num)//2)
+
+                    Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
+
+                    Desc_array = np.concatenate(Desc_matriz)
+
+                    Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
+
+                    Desc_deci = ''.join(Desc_deci)
+                    Desc_deci =(Desc[:-1])
+print(Desc_deci)
