@@ -32,8 +32,6 @@ def criptografia_desc (Desc):
 
         Desc_Cod = ''.join(Desc_Cod)
 
-        Desc_Cod = Desc_Cod[:-1]
-
         
 
     else:
@@ -267,41 +265,22 @@ while (num != 0):
             for i in range (len(id_prod)):
                 Desc_cod = desc_prod[i]
 
-                if (len(Desc_cod)%2 != 0 ):
-                    Desc_cod += (Desc_cod[-1:])
+                Desc_num = [letra_to_num[i] for i in Desc_cod]
 
-                    Desc_num = [letra_to_num[i] for i in Desc_cod]
+                Desc_array = np.array(Desc_num)
 
-                    Desc_array = np.array(Desc_num)
+                Desc_pares = np.split(Desc_array, len(Desc_num)//2)
 
-                    Desc_pares = np.split(Desc_array, len(Desc_num)//2)
+                Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
 
-                    Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
+                Desc_array = np.concatenate(Desc_matriz)
 
-                    Desc_array = np.concatenate(Desc_matriz)
+                Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
 
-                    Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
+                Desc_deci = ''.join(Desc_deci)
 
-                    Desc_deci = ''.join(Desc_deci)
-
+                if (Desc_deci[-1] == Desc_deci[-2]):
                     Desc_deci = Desc_deci[:-1]
-
-                elif (len(Desc_cod)%2 == 0 ):
-
-                    Desc_num = [letra_to_num[i] for i in Desc_cod]
-
-                    Desc_array = np.array(Desc_num)
-
-                    Desc_pares = np.split(Desc_array, len(Desc_num)//2)
-
-                    Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
-
-                    Desc_array = np.concatenate(Desc_matriz)
-
-                    Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
-
-                    Desc_deci = ''.join(Desc_deci)
-
 
                 PV=custo_prod[i] / (1 - ((custo_fixo[i] + comissao_vendas[i] + impostos[i] + margem_lucro[i])/100))
 
@@ -353,40 +332,23 @@ while (num != 0):
 
             Desc_cod = desc_prod[ID]
 
-            if (len(Desc_cod)%2 != 0 ):
-                Desc_cod += (Desc_cod[-1:])
+            Desc_num = [letra_to_num[i] for i in Desc_cod]
 
-                Desc_num = [letra_to_num[i] for i in Desc_cod]
+            Desc_array = np.array(Desc_num)
 
-                Desc_array = np.array(Desc_num)
+            Desc_pares = np.split(Desc_array, len(Desc_num)//2)
 
-                Desc_pares = np.split(Desc_array, len(Desc_num)//2)
+            Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
 
-                Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
+            Desc_array = np.concatenate(Desc_matriz)
 
-                Desc_array = np.concatenate(Desc_matriz)
+            Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
 
-                Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
+            Desc_deci = ''.join(Desc_deci)
 
-                Desc_deci = ''.join(Desc_deci)
-
+            if (Desc_deci[-1] == Desc_deci[-2]):
                 Desc_deci = Desc_deci[:-1]
 
-            elif (len(Desc_cod)%2 == 0 ):
-
-                Desc_num = [letra_to_num[i] for i in Desc_cod]
-
-                Desc_array = np.array(Desc_num)
-
-                Desc_pares = np.split(Desc_array, len(Desc_num)//2)
-
-                Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
-
-                Desc_array = np.concatenate(Desc_matriz)
-
-                Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
-
-                Desc_deci = ''.join(Desc_deci)
 
             PV=custo_prod[ID] / (1 - ((custo_fixo[ID] + comissao_vendas[ID] + impostos[ID] + margem_lucro[ID])/100))
 
