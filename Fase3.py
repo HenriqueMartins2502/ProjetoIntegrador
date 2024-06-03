@@ -257,8 +257,6 @@ while (num != 0):
         WHERE id_prod = {CodP}""")
         print("PRODUTO DELETADO COM SUCESSO")
         conexao.commit()
-cursor.close
-conexao.close
 
     if num == 4:
         print('-'*50)
@@ -391,35 +389,35 @@ conexao.close
             impostos=[]
             margem_lucro=[]
                 
-            cursor.execute("""select id_prod from estoque
+            cursor.execute(f"""select id_prod from estoque
                            where id_prod = {ID}""")
             id_prod = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute("""select nome_prod from estoque
+            cursor.execute(f"""select nome_prod from estoque
                            where id_prod = {ID}""")
             nome_prod = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute("""select desc_prod from estoque
+            cursor.execute(f"""select desc_prod from estoque
                            where id_prod = {ID}""")
             desc_prod = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute("""select custo_prod from estoque
+            cursor.execute(f"""select custo_prod from estoque
                            where id_prod = {ID}""")
             custo_prod = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute("""select custo_fixo from estoque
+            cursor.execute(f"""select custo_fixo from estoque
                            where id_prod = {ID}""")
             custo_fixo = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute("""select comissao_vendas from estoque
+            cursor.execute(f"""select comissao_vendas from estoque
                            where id_prod = {ID}""")
             comissao_vendas = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute("""select impostos from estoque
+            cursor.execute(f"""select impostos from estoque
                            where id_prod = {ID}""")
             impostos = [row[0] for row in cursor.fetchall()]
 
-            cursor.execute(""""select margem_lucro from estoque
+            cursor.execute(f""""select margem_lucro from estoque
                            where id_prod = {ID}""")
             margem_lucro = [row[0] for row in cursor.fetchall()]
 
@@ -431,9 +429,6 @@ conexao.close
             estoque.append(comissao_vendas)
             estoque.append(impostos)
             estoque.append(margem_lucro)
-
-            cursor.close
-            conexao.close
 
             import numpy as np
 
@@ -506,9 +501,11 @@ conexao.close
         if (num_2 == 0):
             continue
 
-elif (num == 0):
-    print ('-'*50)
-    print ("Programa Finalizado.")\
+        elif (num == 0):
+            print ('-'*50)
+            print ("Programa Finalizado.")\
 
-else:
-    print ("Opcão Inválida.")
+        else:
+            print ("Opcão Inválida.")
+cursor.close
+conexao.close
