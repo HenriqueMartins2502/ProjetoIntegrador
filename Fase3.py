@@ -2,9 +2,9 @@ import oracledb
 import numpy as np
 
 def criptografia_desc (Desc):
-    if (len(Desc)%2 != 0):
-        Desc = Desc.replace(" ", "")
-        Desc = Desc.lower()
+    Desc = Desc.replace(" ", "")
+    Desc = Desc.lower()
+    if (len(Desc))% 2 != 0:
         Desc += (Desc[-1:])
 
         alfabeto = "abcdefghijklmnopqrstuvwxyz"
@@ -32,14 +32,7 @@ def criptografia_desc (Desc):
 
         Desc_Cod = ''.join(Desc_Cod)
 
-        
-
     else:
-
-        Desc = Desc.replace(" ", "")
-
-        Desc = Desc.lower()
-
         alfabeto = "abcdefghijklmnopqrstuvwxyz"
 
         chave = "test"
@@ -66,7 +59,6 @@ def criptografia_desc (Desc):
         Desc_Cod = ''.join(Desc_Cod)
     return Desc_Cod
 
-
 try:
  conexao = oracledb.connect(
  user="BD150224114",
@@ -79,7 +71,6 @@ else:
 cursor=conexao.cursor()
 
 num = 1
-
 print('-'*50)
 print(" Bem vindo ao software de controle de estoque")
 
@@ -90,7 +81,6 @@ while (num != 0):
     print ("3. Apagar Produto")
     print ("4. Listar Produtos")
     print ("0. Sair do Sistema")
-    
 
     num = int(input("Digite para Selecionar:"))
     print('-'*50)
@@ -110,13 +100,11 @@ while (num != 0):
         
         cursor.execute (f"""INSERT INTO estoque (id_prod, nome_prod, desc_prod, custo_prod, custo_fixo, comissao_vendas, impostos, margem_lucro) 
         VALUES ({CodP}, '{Nome}', '{Desc_Cod}', {CP}, {porcen_CF}, {porcen_CV}, {porcen_IMP}, {porcen_ML})""")
-
         conexao.commit()
+
         print('-'*50)
         print("PRODUTO INSERIDO COM SUCESSO")
-        print('-'*50)
     if (num == 2):
-
         menu = 1
         CodP = int(input("Digite o Código do Produto que Deseja Alterar os Dados: "))
 
@@ -130,26 +118,32 @@ while (num != 0):
                 cursor.execute (f"""UPDATE estoque
                 SET nome_prod = '{novo_nome}'
                 WHERE id_prod = {CodP}""")
+                print('-'*50)
                 print("NOME ALTERADO COM SUCESSO")
-
+                
+                conexao.commit()
             if (menu == 2):
                 print('-'*50)
                 nova_descricao = input("Digite a Nova Descrição do Produto: ")
-                Desc_cod = criptografia_desc(nova_descricao)
+                Nova_Desc_cod = criptografia_desc(nova_descricao)
         
                 cursor.execute (f"""UPDATE estoque
-                SET desc_prod = '{Desc_Cod}'
-                WHERE id_prod = {CodP}""")  
+                SET desc_prod = '{Nova_Desc_cod}'
+                WHERE id_prod = {CodP}""") 
+                print('-'*50)
                 print("DESCRIÇÃO ALTERADA COM SUCESSO")
-
+                
+                conexao.commit()
             if (menu == 3):
                 print('-'*50)
                 novo_CP = input("Digite o Novo Custo do Produto: ")
                 cursor.execute (f"""UPDATE estoque
                 SET custo_prod = {novo_CP}
                 WHERE id_prod = {CodP}""") 
+                print('-'*50)
                 print("CUSTO DO PRODUTO ALTERADO COM SUCESSO")  
-
+              
+                conexao.commit()
 
             if (menu == 4):
                 print('-'*50)
@@ -157,8 +151,10 @@ while (num != 0):
                 cursor.execute (f"""UPDATE estoque
                 SET custo_fixo = {novo_CF}
                 WHERE id_prod = {CodP}""") 
+                print('-'*50)
                 print("CUSTO FIXO ALTERADO COM SUCESSO")
-
+                
+                conexao.commit()
 
             if (menu == 5):
                 print('-'*50)
@@ -166,8 +162,10 @@ while (num != 0):
                 cursor.execute (f"""UPDATE estoque
                 SET comissao_vendas = {nova_CV}
                 WHERE id_prod = {CodP}""")    
-                print("COMISSÃO DE VENDAS ALTERADO COM SUCESSO")  
-
+                print('-'*50)
+                print("COMISSÃO DE VENDAS ALTERADO COM SUCESSO") 
+                 
+                conexao.commit()
 
             if (menu == 6):
                 print('-'*50)
@@ -175,19 +173,22 @@ while (num != 0):
                 cursor.execute (f"""UPDATE estoque
                 SET impostos = {novo_IMP}
                 WHERE id_prod = {CodP}""") 
+                print('-'*50)
                 print("IMPOSTO ALTERADO COM SUCESSO")
-
+                
+                conexao.commit()
             if (menu == 7):
                 print('-'*50)
                 nova_ML = input("Digite a Nova Margem de Lucro do Produto: ")
                 cursor.execute (f"""UPDATE estoque
                 SET margem_lucro = {nova_ML}
                 WHERE id_prod = {CodP}""")
+                print('-'*50)
                 print("MARGEM DE LUCRO ALTERADA COM SUCESSO")
-            conexao.commit()
+                
+                conexao.commit()
 
     if num == 3:
-        print('-'*50)
         CodP = int(input("Digite o Código do Produto que Deseja Apagar os Dados: "))
         print('-'*50)
         cursor.execute (f"""DELETE estoque
@@ -196,10 +197,6 @@ while (num != 0):
         conexao.commit()
 
     if num == 4:
-        print('-'*50)
-        print("1. Listar Todos os Produtos\n2. Selecionar Produto por ID\n0. Voltar")
-
-        num_2 = int(input("Digite para Selecionar:"))
 
         estoque=[]
         id_prod=[]
@@ -245,25 +242,42 @@ while (num != 0):
         estoque.append(margem_lucro)
 
 
-        if (num_2 == 1):
+        
 
-            alfabeto = "abcdefghijklmnopqrstuvwxyz"
+        alfabeto = "abcdefghijklmnopqrstuvwxyz"
 
-            chave = "test"
+        chave = "test"
 
-            letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
-            num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
+        letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
+        num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
 
-            chave_num = [letra_to_num[i] for i in chave]
+        chave_num = [letra_to_num[i] for i in chave]
 
-            chave_matriz = np.array(chave_num).reshape(2, 2)
+        chave_matriz = np.array(chave_num).reshape(2, 2)
 
-            matriz_deci = np.linalg.inv(chave_matriz) * round(np.linalg.det(chave_matriz))
+        matriz_deci = np.linalg.inv(chave_matriz) * round(np.linalg.det(chave_matriz))
 
-            chave_inv = (9 * matriz_deci) % 26
+        chave_inv = (9 * matriz_deci) % 26
 
-            for i in range (len(id_prod)):
-                Desc_cod = desc_prod[i]
+        for i in range (len(id_prod)):
+            Desc_cod = desc_prod[i]
+
+            if (len(Desc_cod))% 2 != 0:
+                Desc_num = [letra_to_num[i] for i in Desc_cod]
+
+                Desc_array = np.array(Desc_num)
+
+                Desc_pares = np.split(Desc_array, len(Desc_num)//2)
+
+                Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
+
+                Desc_array = np.concatenate(Desc_matriz)
+
+                Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
+
+                Desc_deci = ''.join(Desc_deci)
+        
+            if (len(Desc_cod)%2 == 0 ):
 
                 Desc_num = [letra_to_num[i] for i in Desc_cod]
 
@@ -279,114 +293,31 @@ while (num != 0):
 
                 Desc_deci = ''.join(Desc_deci)
 
-                if (Desc_deci[-1] == Desc_deci[-2]):
-                    Desc_deci = Desc_deci[:-1]
+            PV=custo_prod[i] / (1 - ((custo_fixo[i] + comissao_vendas[i] + impostos[i] + margem_lucro[i])/100))
 
-                PV=custo_prod[i] / (1 - ((custo_fixo[i] + comissao_vendas[i] + impostos[i] + margem_lucro[i])/100))
-
-                
-
-                print (f"Produto: {nome_prod[i]}   Especifcacão: {Desc_deci}")
-                print ("---------------------------------------------------------")
-                print (f"Descriçao:                            Valor       %")
-                print (f"A. Preço de Venda                  =  R${PV:.2f}     100.0%")
-                print (f"B. Custo de Aquisição (Fornecedor) =  R${custo_prod[i]:.2f}     {(100*custo_prod[i]/PV):.2f}%") 
-                print (f"C. Receita Bruta                   =  R${(PV-custo_prod[i]):.2f}     {(((PV-custo_prod[i])*100)/PV):.2f}%")
-                print (f"D. Custo Fixo/Administrativo       =  R${((custo_fixo[i]*PV)/100):.2f}     {custo_fixo[i]:.2f}%")
-                print (f"E. Comissão de Vendas              =  R${((comissao_vendas[i]*PV)/100):.2f}      {comissao_vendas[i]:.2f}%")
-                print (f"F. Impostos                        =  R${((impostos[i]*PV)/100):.2f}      {impostos[i]:.2f}%")
-                print (f"G. Outros Custos (D+E+F)           =  R${(PV*(custo_fixo[i]/100)+PV*(comissao_vendas[i]/100)+PV*(impostos[i]/100)):.2f}     {impostos[i]+comissao_vendas[i]+custo_fixo[i]:.2f}%")
-                print (f"H. Rentabilidade (C-G)             =  R${((margem_lucro[i]*PV)/100):.2f}     {margem_lucro[i]:.2f}%")
-
-                if margem_lucro[i] > 20:
-                    print("\nO Lucro Deste Produto é Alto.\n")
-                elif margem_lucro[i] > 10 and margem_lucro[i] <= 20:
-                    print("\nO Lucro Deste Produto é Médio.\n")
-                elif margem_lucro[i] > 0 and margem_lucro[i] <= 10:
-                    print("\nO Lucro Deste Produto é Baixo.\n")
-                elif margem_lucro[i] == 0:
-                    print("\nEste Produto Não Gera Lucro ou Pejuízo (Equilíbrio).\n")
-                elif margem_lucro[i] < 0:
-                    print("\nEste Produto Gera Prejuízo.\n")
-
-        while (num_2 == 2):
-
-            Id = int(input("Digite o ID do Produto:"))
-
-            ID = Id - 1
-
-            alfabeto = "abcdefghijklmnopqrstuvwxyz"
-
-            chave = "test"
-
-            letra_to_num = dict(zip(alfabeto, range(len(alfabeto))))
-            num_to_letra = dict(zip(range(len(alfabeto)), alfabeto))
-
-            chave_num = [letra_to_num[i] for i in chave]
-
-            chave_matriz = np.array(chave_num).reshape(2, 2)
-
-            matriz_deci = np.linalg.inv(chave_matriz) * round(np.linalg.det(chave_matriz))
-
-            chave_inv = (9 * matriz_deci) % 26
-
-            Desc_cod = desc_prod[ID]
-
-            Desc_num = [letra_to_num[i] for i in Desc_cod]
-
-            Desc_array = np.array(Desc_num)
-
-            Desc_pares = np.split(Desc_array, len(Desc_num)//2)
-
-            Desc_matriz = [np.matmul(Desc_pares[i], chave_inv) % 26 for i in range(len(Desc_pares))]
-
-            Desc_array = np.concatenate(Desc_matriz)
-
-            Desc_deci = [num_to_letra[round(Desc_array[i])] for i in range(len(Desc_array))]
-
-            Desc_deci = ''.join(Desc_deci)
-
-            if (Desc_deci[-1] == Desc_deci[-2]):
-                Desc_deci = Desc_deci[:-1]
-
-
-            PV=custo_prod[ID] / (1 - ((custo_fixo[ID] + comissao_vendas[ID] + impostos[ID] + margem_lucro[ID])/100))
-
-            print (f"Produto: {nome_prod[ID]}   Especifcacão: {Desc_deci}")
+            print('-'*50)
+            print (f"Produto: {nome_prod[i]}   Especifcacão: {Desc_deci}")
             print ("---------------------------------------------------------")
             print (f"Descriçao:                            Valor       %")
             print (f"A. Preço de Venda                  =  R${PV:.2f}     100.0%")
-            print (f"B. Custo de Aquisição (Fornecedor) =  R${custo_prod[ID]:.2f}     {(100*custo_prod[ID]/PV):.2f}%") 
-            print (f"C. Receita Bruta                   =  R${(PV-custo_prod[ID]):.2f}     {(((PV-custo_prod[ID])*100)/PV):.2f}%")
-            print (f"D. Custo Fixo/Administrativo       =  R${((custo_fixo[ID]*PV)/100):.2f}     {custo_fixo[ID]:.2f}%")
-            print (f"E. Comissão de Vendas              =  R${((comissao_vendas[ID]*PV)/100):.2f}      {comissao_vendas[ID]:.2f}%")
-            print (f"F. Impostos                        =  R${((impostos[ID]*PV)/100):.2f}      {impostos[ID]:.2f}%")
-            print (f"G. Outros Custos (D+E+F)           =  R${(PV*(custo_fixo[ID]/100)+PV*(comissao_vendas[ID]/100)+PV*(impostos[ID]/100)):.2f}     {impostos[ID]+comissao_vendas[ID]+custo_fixo[ID]:.2f}%")
-            print (f"H. Rentabilidade (C-G)             =  R${((margem_lucro[ID]*PV)/100):.2f}     {margem_lucro[ID]:.2f}%")
+            print (f"B. Custo de Aquisição (Fornecedor) =  R${custo_prod[i]:.2f}     {(100*custo_prod[i]/PV):.2f}%") 
+            print (f"C. Receita Bruta                   =  R${(PV-custo_prod[i]):.2f}     {(((PV-custo_prod[i])*100)/PV):.2f}%")
+            print (f"D. Custo Fixo/Administrativo       =  R${((custo_fixo[i]*PV)/100):.2f}     {custo_fixo[i]:.2f}%")
+            print (f"E. Comissão de Vendas              =  R${((comissao_vendas[i]*PV)/100):.2f}      {comissao_vendas[i]:.2f}%")
+            print (f"F. Impostos                        =  R${((impostos[i]*PV)/100):.2f}      {impostos[i]:.2f}%")
+            print (f"G. Outros Custos (D+E+F)           =  R${(PV*(custo_fixo[i]/100)+PV*(comissao_vendas[i]/100)+PV*(impostos[i]/100)):.2f}     {impostos[i]+comissao_vendas[i]+custo_fixo[i]:.2f}%")
+            print (f"H. Rentabilidade (C-G)             =  R${((margem_lucro[i]*PV)/100):.2f}     {margem_lucro[i]:.2f}%")
 
-            if margem_lucro[ID] > 20:
+            if margem_lucro[i] > 20:
                 print("\nO Lucro Deste Produto é Alto.\n")
-            elif margem_lucro[ID] > 10 and margem_lucro[ID] <= 20:
+            elif margem_lucro[i] > 10 and margem_lucro[i] <= 20:
                 print("\nO Lucro Deste Produto é Médio.\n")
-            elif margem_lucro[ID] > 0 and margem_lucro[ID] <= 10:
+            elif margem_lucro[i] > 0 and margem_lucro[i] <= 10:
                 print("\nO Lucro Deste Produto é Baixo.\n")
-            elif margem_lucro[ID] == 0:
+            elif margem_lucro[i] == 0:
                 print("\nEste Produto Não Gera Lucro ou Pejuízo (Equilíbrio).\n")
-            elif margem_lucro[ID] < 0:
+            elif margem_lucro[i] < 0:
                 print("\nEste Produto Gera Prejuízo.\n")
-
-            print('-'*50)
-            print("1. Listar Todos os Produtos")
-            print("2. Selecionar Produto por ID")
-            print("0. Voltar")
-
-            num_2 = int(input("Digite para Selecionar:"))
-
-        if (num_2 == 0):
-            continue
-
-        elif(num_2 <0) and (num_2 > 2):
-            print ("Opcão Inválida.")
 
     if num ==0:
         print('Programa finalizado')
